@@ -1,0 +1,41 @@
+name: RSS Daily Report Generator
+
+on:
+  schedule:
+    # 每天北京时间上午9点执行 (UTC+8 = UTC-8小时)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        uv sync
+        
+    - name: Create required directories
+      run: |
+        mkdir -p rss generated_reports daily_reports
+        
+    - name: Run RSS Daily Report Generator
+      env:
+        PYTHONUNBUFFERED: 1
+      run: |
+        uv run main.py
+        
+    # - name: generated reports save
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: reports
+    #     path: generated_reports
