@@ -19,7 +19,7 @@ CONFIG = {
         'http': os.getenv('PROXY_HTTP', 'socks5h://127.0.0.1:10909'),
         'https': os.getenv('PROXY_HTTPS', 'socks5h://127.0.0.1:10909')
     },
-    'OPENAI_API_KEY': os.getenv('OPENAI_API_KEY', '),
+    'OPENAI_API_KEY': os.getenv('OPENAI_API_KEY', ''),
     'OPENAI_BASE_URL': os.getenv('OPENAI_BASE_URL', ''),
     'OPENAI_MODEL': os.getenv('OPENAI_MODEL', ''),
     'EMAIL': {
