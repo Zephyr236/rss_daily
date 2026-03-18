@@ -31,8 +31,18 @@ jobs:
     - name: Run RSS Daily Report Generator
       env:
         PYTHONUNBUFFERED: 1
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+        OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+        EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+        TO_EMAILS: ${{ secrets.TO_EMAILS }}
+        PASS: ${{ secrets.PASS }}
+        
       run: |
-        uv run main.py
+        unzip -P $PASS rss.zip
+        uv run main.py > /dev/null
         
     # - name: generated reports save
     #   uses: actions/upload-artifact@v4
